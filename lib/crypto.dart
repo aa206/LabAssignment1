@@ -29,24 +29,28 @@ class CryptoCurrency extends StatefulWidget {
 }
 
 class _CryptoCurrencyState extends State<CryptoCurrency> {
- String defaultct = "btc", description = "";
- var data;
+ String defaultct = "Bitcoin", description = "";
+ var name, value, type, unit;
  List<String> crypto = [
-   "btc",
-   "eth",
-   "ltc",
+   "Bitcoin",
+   "US Dollar",
+   "United Arab Emirates Dirham",
+   "Chinese Yuan",
+   "Japanese Yen",
+   "South Korean Won",
+   "Malaysian Ringgit RM",
  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bitcoin Exchange App")),
+      appBar: AppBar(title: const Text("Value Exchange App")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
           const Text(
-            "Cryptocurrencies",
+            "Cryptocurrency",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             DropdownButton(
@@ -67,7 +71,7 @@ class _CryptoCurrencyState extends State<CryptoCurrency> {
               }).toList(),
             ),
             ElevatedButton(
-              onPressed: _loadData, child: const Text("Load Weather")),
+              onPressed: _loadData, child: const Text("Exchange")),
             const SizedBox(height: 10),
             Text(
               description,
@@ -86,10 +90,13 @@ class _CryptoCurrencyState extends State<CryptoCurrency> {
      if (response.statusCode == 200){
       var jsonData = response.body;
       var parsedData = json.decode(jsonData);
-      data = parsedData['rates'];
+      name = parsedData['rates']['btc']['name'];
+      value = parsedData['rates']['btc']['value'];
+      type = parsedData['rates']['btc']['type'];
+      unit = parsedData['rates']['btc']['unit'];
       setState(() {
         description =
-            "Name: $data ";
+            "Name : $name \nUnit     : $unit \nValue  : $value \nType   : $type";
       });
       progressDialog.dismiss();
      }
