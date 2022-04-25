@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 6, 103, 94),
+      backgroundColor: Color.fromARGB(255, 8, 94, 94),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           const Text(
             "BITCOIN EXCHANGE",
             style: TextStyle(
-           fontSize:30, fontWeight: FontWeight.bold, color: Colors.white,
+           fontSize:28, fontWeight: FontWeight.bold, color: Colors.white,
           ), )
         ]),
       ),

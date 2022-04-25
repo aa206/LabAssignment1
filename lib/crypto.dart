@@ -29,16 +29,69 @@ class CryptoCurrency extends StatefulWidget {
 }
 
 class _CryptoCurrencyState extends State<CryptoCurrency> {
- String defaultct = "Bitcoin", description = "";
- var name, value, type, unit;
+ String defaultct = "btc", description = "";
+ String name = "", type = "", unit = "";
+ double value = 0.0;
  List<String> crypto = [
-   "Bitcoin",
-   "US Dollar",
-   "United Arab Emirates Dirham",
-   "Chinese Yuan",
-   "Japanese Yen",
-   "South Korean Won",
-   "Malaysian Ringgit RM",
+   "btc",
+   "eth",
+   "ltc",
+   "bch",
+   "bnb",
+   "eos",
+   "xrp",
+   "xlm",
+   "link",
+   "dot",
+   "yfi",
+   "usd",
+   "aed",
+   "ars",
+   "aud",
+   "bdt",
+   "bhd",
+   "bmd",
+   "brl",
+   "cad",
+   "chf",
+   "clp",
+   "cny",
+   "czk",
+   "dkk",
+   "eur",
+   "gbp",
+   "hkd",
+   "huf",
+   "idr",
+   "ils",
+   "inr",
+   "jpy",
+   "krw",
+   "kwd",
+   "lkr",
+   "mmk",
+   "mxn",
+   "myr",
+   "ngn",
+   "nok",
+   "nzd",
+   "php",
+   "pkr",
+   "pln",
+   "rub",
+   "sar",
+   "sek",
+   "sgd",
+   "thb",
+   "try",
+   "twd",
+   "uah",
+   "vef",
+   "vnd",
+   "zar",
+   "xdr",
+   "bits",
+   "sats",
  ];
 
   @override
@@ -53,6 +106,10 @@ class _CryptoCurrencyState extends State<CryptoCurrency> {
             "Cryptocurrency",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            const Text(
+            "Choose a crypto to get its exchange information",
+            style: TextStyle(fontSize: 12),
+            ),
             DropdownButton(
               itemHeight: 60,
               value: defaultct, 
@@ -61,17 +118,21 @@ class _CryptoCurrencyState extends State<CryptoCurrency> {
                   defaultct = newValue.toString();
                 });
               },
+              elevation: 8,
+              style:TextStyle(color:Colors.brown, fontSize: 16),
+              icon: Icon(Icons.arrow_drop_down_circle),
+              iconEnabledColor: Colors.amberAccent,
               items: crypto.map((defaultct){
                 return DropdownMenuItem(
                   child: Text(
                   defaultct,
                  ),
-                  value:defaultct,
+                  value: defaultct,
               );
               }).toList(),
             ),
             ElevatedButton(
-              onPressed: _loadData, child: const Text("Exchange")),
+              onPressed: _loadData, child: const Text("Get Info")),
             const SizedBox(height: 10),
             Text(
               description,
@@ -90,10 +151,10 @@ class _CryptoCurrencyState extends State<CryptoCurrency> {
      if (response.statusCode == 200){
       var jsonData = response.body;
       var parsedData = json.decode(jsonData);
-      name = parsedData['rates']['btc']['name'];
-      value = parsedData['rates']['btc']['value'];
-      type = parsedData['rates']['btc']['type'];
-      unit = parsedData['rates']['btc']['unit'];
+      name = parsedData['rates'][defaultct]['name'];
+      value = parsedData['rates'][defaultct]['value'];
+      type = parsedData['rates'][defaultct]['type'];
+      unit = parsedData['rates'][defaultct]['unit'];
       setState(() {
         description =
             "Name : $name \nUnit     : $unit \nValue  : $value \nType   : $type";
